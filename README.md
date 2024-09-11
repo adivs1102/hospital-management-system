@@ -1,4 +1,3 @@
-Here’s a short README for the Hospital Management System:
 
 ---
 
@@ -35,5 +34,3 @@ The system contains the following main tables:
 - Relational database management tools for running and managing queries
 
 ---
-
-You can expand the README further by adding details such as how to set up the environment or dependencies, depending on your project setup.
