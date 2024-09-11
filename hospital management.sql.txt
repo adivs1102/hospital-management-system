@@ -1,0 +1,83 @@
+-- Table to store patients' information
+CREATE TABLE Patients (
+    patient_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender VARCHAR(10),
+    birth_date DATE,
+    phone_number VARCHAR(15),
+    email VARCHAR(100),
+    address TEXT,
+    emergency_contact_name VARCHAR(100),
+    emergency_contact_phone VARCHAR(15),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table to store doctors' information
+CREATE TABLE Doctors (
+    doctor_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    specialization VARCHAR(100),
+    department_id INT,
+    phone_number VARCHAR(15),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+);
+
+-- Table to store departments
+CREATE TABLE Departments (
+    department_id INT PRIMARY KEY AUTO_INCREMENT,
+    department_name VARCHAR(100) NOT NULL
+);
+
+-- Table to store appointment information
+CREATE TABLE Appointments (
+    appointment_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT,
+    doctor_id INT,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    reason TEXT,
+    status VARCHAR(50) DEFAULT 'Scheduled',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+);
+
+-- Table to store prescriptions
+CREATE TABLE Prescriptions (
+    prescription_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT,
+    doctor_id INT,
+    appointment_id INT,
+    prescription_date DATE NOT NULL,
+    medicine_details TEXT,
+    instructions TEXT,
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id),
+    FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
+);
+
+-- Table to store room allocation information
+CREATE TABLE Rooms (
+    room_id INT PRIMARY KEY AUTO_INCREMENT,
+    room_number VARCHAR(10) NOT NULL,
+    room_type VARCHAR(50), -- e.g. Single, Double, ICU, etc.
+    availability_status VARCHAR(50) DEFAULT 'Available',
+    patient_id INT,
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
+);
+
+-- Table to store billing information
+CREATE TABLE Billing (
+    billing_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT,
+    appointment_id INT,
+    total_amount DECIMAL(10, 2),
+    billing_date DATE,
+    payment_status VARCHAR(50) DEFAULT 'Pending',
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+    FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
+);
