@@ -81,3 +81,59 @@ CREATE TABLE Billing (
     FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
     FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
 );
+
+
+INSERT INTO Departments (department_name)
+VALUES 
+    ('Cardiology'),
+    ('Neurology'),
+    ('Pediatrics'),
+    ('Orthopedics'),
+    ('Radiology');
+
+INSERT INTO Doctors (first_name, last_name, specialization, department_id, phone_number, email)
+VALUES 
+    ('John', 'Doe', 'Cardiologist', 1, '1234567890', 'johndoe@hospital.com'),
+    ('Alice', 'Smith', 'Neurologist', 2, '2345678901', 'alicesmith@hospital.com'),
+    ('Robert', 'Brown', 'Pediatrician', 3, '3456789012', 'robertbrown@hospital.com'),
+    ('Emma', 'Johnson', 'Orthopedic Surgeon', 4, '4567890123', 'emmajohnson@hospital.com'),
+    ('David', 'Williams', 'Radiologist', 5, '5678901234', 'davidwilliams@hospital.com');
+
+
+INSERT INTO Patients (first_name, last_name, gender, birth_date, phone_number, email, address, emergency_contact_name, emergency_contact_phone)
+VALUES 
+    ('Michael', 'Scott', 'Male', '1980-03-15', '9876543210', 'michaelscott@gmail.com', '123 Scranton Street', 'Jim Halpert', '8765432109'),
+    ('Pam', 'Beesly', 'Female', '1985-06-25', '8765432109', 'pam.beesly@gmail.com', '456 Scranton Avenue', 'Angela Martin', '7654321098'),
+    ('Dwight', 'Schrute', 'Male', '1978-01-20', '7654321098', 'dwight.schrute@dundermifflin.com', '789 Scranton Lane', 'Michael Scott', '6543210987'),
+    ('Jim', 'Halpert', 'Male', '1983-10-01', '6543210987', 'jim.halpert@gmail.com', '101 Scranton Circle', 'Pam Beesly', '5432109876');
+
+
+INSERT INTO Appointments (patient_id, doctor_id, appointment_date, appointment_time, reason)
+VALUES 
+    (1, 1, '2024-09-01', '09:00:00', 'Routine checkup for heart condition'),
+    (2, 3, '2024-09-02', '11:00:00', 'Checkup for child vaccination'),
+    (3, 2, '2024-09-03', '13:00:00', 'Consultation for headaches'),
+    (4, 4, '2024-09-04', '15:00:00', 'Orthopedic surgery follow-up');
+
+INSERT INTO Prescriptions (patient_id, doctor_id, appointment_id, prescription_date, medicine_details, instructions)
+VALUES 
+    (1, 1, 1, '2024-09-01', 'Aspirin 100mg', 'Take one tablet after meals for 7 days'),
+    (2, 3, 2, '2024-09-02', 'Paracetamol 500mg', 'One tablet in case of fever'),
+    (3, 2, 3, '2024-09-03', 'Ibuprofen 200mg', 'Take one tablet every 8 hours for 3 days'),
+    (4, 4, 4, '2024-09-04', 'Vitamin D supplement', 'Take one tablet daily for 2 months');
+
+
+INSERT INTO Rooms (room_number, room_type, availability_status, patient_id)
+VALUES 
+    ('101', 'Single', 'Occupied', 1),
+    ('102', 'Double', 'Available', NULL),
+    ('201', 'ICU', 'Occupied', 3),
+    ('202', 'Single', 'Available', NULL);
+
+
+INSERT INTO Billing (patient_id, appointment_id, total_amount, billing_date, payment_status)
+VALUES 
+    (1, 1, 500.00, '2024-09-01', 'Paid'),
+    (2, 2, 300.00, '2024-09-02', 'Pending'),
+    (3, 3, 450.00, '2024-09-03', 'Paid'),
+    (4, 4, 1000.00, '2024-09-04', 'Pending');
